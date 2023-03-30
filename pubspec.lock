@@ -169,4 +169,8 @@ packages:
     source: hosted
     version: "2.1.4"
 sdks:
+<<<<<<< HEAD
   dart: ">=2.19.4 <3.0.0"
+=======
+  dart: ">=2.18.0 <3.0.0"
+>>>>>>> 7685389 (update)
