@@ -1,8 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/main_drawer.dart';
 
-class FiltersScreen extends StatelessWidget {
+class FiltersScreen extends StatefulWidget {
   static const routeName = '/filters';
+
+  @override
+  State<FiltersScreen> createState() => _FiltersScreenState();
+}
+
+class _FiltersScreenState extends State<FiltersScreen> {
+  var _glutenFree = false;
+  var _vegetarian = false;
+  var _vegan = false;
+  var _lactoseFree = false;
+
+  Widget _buildSwitchListTile(
+    String title,
+    String description,
+    var currentValue,
+    var updateValue,
+  ) {
+    return SwitchListTile(
+      value: currentValue,
+      onChanged: updateValue,
+      title: Text(title),
+      subtitle: Text(
+        description,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,8 +37,70 @@ class FiltersScreen extends StatelessWidget {
         title: Text('Your Filters'),
       ),
       drawer: MainDrawer(),
-      body: Center(
-        child: Text('filters'),
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(16),
+            child: Text(
+              'Adjust your meal selection',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                _buildSwitchListTile(
+                  'Gluten-free',
+                  'Only include gluten-free meals',
+                  _glutenFree,
+                  (newValue) {
+                    setState(
+                      () {
+                        _glutenFree = newValue;
+                      },
+                    );
+                  },
+                ),
+                _buildSwitchListTile(
+                  'Lactose-free',
+                  'Only include lactose-free meals',
+                  _lactoseFree,
+                  (newValue) {
+                    setState(
+                      () {
+                        _lactoseFree = newValue;
+                      },
+                    );
+                  },
+                ),
+                _buildSwitchListTile(
+                  'Vegetarian',
+                  'Only include vegetarian meals',
+                  _vegetarian,
+                  (newValue) {
+                    setState(
+                      () {
+                        _vegetarian = newValue;
+                      },
+                    );
+                  },
+                ),
+                _buildSwitchListTile(
+                  'Vegan',
+                  'Only include vegan meals',
+                  _vegan,
+                  (newValue) {
+                    setState(
+                      () {
+                        _vegan = newValue;
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
